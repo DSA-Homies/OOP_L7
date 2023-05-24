@@ -1,16 +1,17 @@
-#ifndef OOP_L5_SCOOTEREXCEPTION_H
-#define OOP_L5_SCOOTEREXCEPTION_H
+#ifndef OOP_L7_INVALIDUSEREXCEPTION_H
+#define OOP_L7_INVALIDUSEREXCEPTION_H
 
 #include <exception>
+#include <string>
 
 using namespace std;
 
 namespace Exception {
-    class InvalidScooterIdException : public exception{
+    class InvalidUserException : public exception {
     private:
         string message;
     public:
-        explicit InvalidScooterIdException(const string &message) {
+        explicit InvalidUserException(const string &message) {
             this->message = message;
         }
 
@@ -19,6 +20,4 @@ namespace Exception {
         }
     };
 }
-
-
-#endif //OOP_L5_SCOOTEREXCEPTION_H
+#endif //OOP_L7_INVALIDUSEREXCEPTION_H

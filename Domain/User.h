@@ -2,12 +2,15 @@
 #define OOP_L7_USER_H
 
 #include <string>
+#include <utility>
 #include <vector>
+#include "../Exception/InvalidUserTypeException.h"
+#include "../Utils/utils.h"
 
 using namespace std;
 
 namespace domain {
-    enum class UserType {
+    enum UserType {
         ADMIN = 0,
         USER = 1
     };
@@ -18,9 +21,6 @@ namespace domain {
     };
 
     class User {
-    private:
-        string username, password;
-
     public:
         [[nodiscard]] static string statusToStr(UserType _status) { return typeList[_status]; }
 
@@ -29,10 +29,53 @@ namespace domain {
                 if (typeList[i] == _status)
                     return UserType(i);
 
-            return DECOMMISSIONED;
+            throw Exception::InvalidUserTypeException("User::User(): Invalid user type: " + _status);
         }
 
+    private:
+        string username;
+        string passwordHash;
+        UserType type;
+        string scooterId;
+
+    public:
+        explicit User(string _username = "", string _passwordHash = "", UserType _type = UserType::USER,
+                      string _scooterId = "")
+                : username(std::move(_username)), passwordHash(std::move(_passwordHash)), type(_type),
+                  scooterId(std::move(_scooterId)) {}
+
+        [[nodiscard]] string getUsername() const { return username; }
+
+        [[nodiscard]] string getPassword() const { return passwordHash; }
+
+        [[nodiscard]] string getType() const { return typeList[type]; }
+
+        UserType getTypeEnum() const { return type; }
+
+        [[nodiscard]] string getScooterId() const { return scooterId; }
+
+        void setScooterId(const string &_scooterId) { scooterId = _scooterId; }
+
+        [[nodiscard]]
+        vector<string> toList() const {
+            return {username, passwordHash, typeList[type], scooterId};
+        }
+
+        [[nodiscard]]
+        string toCSVString() const {
+            return username + "," + sha256(passwordHash) + "," + typeList[type] + "," + scooterId;
+        }
+
+        bool operator==(const User &other) const {
+            return username == other.username;
+        }
+
+        bool operator!=(const User &other) const {
+            return username != other.username;
+        }
     };
-}
+
+};
+
 
 #endif //OOP_L7_USER_H

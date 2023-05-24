@@ -7,14 +7,14 @@
 
 #include <iostream>
 #include <cassert>
-#include "../Repo/CSVRepo/CSVRepo.h"
+#include "ScooterRepoCSV.h"
 #include "../Utils/utils.h"
 
 void testCSVRepo() {
 
     cout << "Testing CSV Repo..." << endl;
 
-    CSVRepo repoTest(vector<Scooter>{}, "../Repo/DataBase/testDataBase1.csv");
+    ScooterRepoCSV repoTest(vector<Scooter>{}, "../Repo/DataBase/testDataBase1.csv");
 
     Scooter scooter1("aaa", "Bolt 4", strToTime("16-05-2023"), 10.0, "Str. Blaga", Status::PARKED);
     Scooter scooter2("bbb", "Bolt 4", strToTime("20-03-2022"), 15.0, "Str. Eminescu", Status::IN_USE);

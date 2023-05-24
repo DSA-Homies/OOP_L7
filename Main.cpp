@@ -10,6 +10,8 @@ using namespace repo;
 using namespace ctrl;
 
 int main() {
+    cout << sha256("admin") << endl;
+
     testAll();
 
     vector<Scooter> initList{
@@ -34,7 +36,7 @@ int main() {
                 repoPtr = make_unique<InMemoryRepo>(initList);
                 break;
             case 2:
-                repoPtr = make_unique<CSVRepo>(initList);
+                repoPtr = make_unique<ScooterRepoCSV>(initList);
                 break;
             case 3:
                 exit(0);

@@ -9,16 +9,16 @@
 #include "../Utils/Utils.h"
 
 namespace repo {
-    class CSVRepo : public CRUDRepo {
+    class ScooterRepoCSV : public CRUDRepo {
     private:
-        string filename_;
+        string filename;
 
         void saveToFile();
 
         void loadFromFile();
 
     public:
-        explicit CSVRepo(const vector<Scooter> &initLIst, string filename = "../Repo/DataBase/validDataBase.csv");
+        explicit ScooterRepoCSV(const vector<Scooter> &initLIst, string filename = "../Repo/DataBase/ScooterDataBase.csv");
 
         void add(const Scooter &scooter) override;
 

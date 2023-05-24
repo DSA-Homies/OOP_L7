@@ -4,14 +4,14 @@
 
 #include <fstream>
 #include <sstream>
-#include "CSVRepo.h"
+#include "ScooterRepoCSV.h"
 #include <algorithm>
 #include <utility>
 
 using namespace repo;
 
-CSVRepo::CSVRepo(const vector<Scooter> &initLIst, string filename) : CRUDRepo(initLIst),
-                                                                     filename_(std::move(filename)) {
+ScooterRepoCSV::ScooterRepoCSV(const vector<Scooter> &initLIst, string filename) : CRUDRepo(initLIst),
+                                                                                   filename(std::move(filename)) {
     loadFromFile();
     if (scooterList.empty()) {
         scooterList = initLIst;
@@ -19,12 +19,12 @@ CSVRepo::CSVRepo(const vector<Scooter> &initLIst, string filename) : CRUDRepo(in
     }
 }
 
-void CSVRepo::add(const Scooter &scooter) {
+void ScooterRepoCSV::add(const Scooter &scooter) {
     scooterList.push_back(scooter);
     saveToFile();
 }
 
-bool CSVRepo::remove(const Scooter &scooter) {
+bool ScooterRepoCSV::remove(const Scooter &scooter) {
     loadFromFile();
     auto it = find(scooterList.begin(), scooterList.end(), scooter);
     if (it != scooterList.end()) {
@@ -35,27 +35,27 @@ bool CSVRepo::remove(const Scooter &scooter) {
     return false;
 }
 
-void CSVRepo::update(int index, const Scooter &newScooter) {
+void ScooterRepoCSV::update(int index, const Scooter &newScooter) {
     loadFromFile();
     if (index < 0 || index > scooterList.size()) {
-        throw out_of_range("CSVRepo::update(): Index out of range for index " + to_string(index));
+        throw out_of_range("ScooterRepoCSV::update(): Index out of range for index " + to_string(index));
     }
 
     scooterList[index] = newScooter;
     saveToFile();
 }
 
-void CSVRepo::updateStatus(int index, Status status) {
+void ScooterRepoCSV::updateStatus(int index, Status status) {
     loadFromFile();
     if (index < 0 || index > scooterList.size()) {
-        throw out_of_range("CSVRepo::updateStatus(): Index out of range for index " + to_string(index));
+        throw out_of_range("ScooterRepoCSV::updateStatus(): Index out of range for index " + to_string(index));
     }
 
     scooterList[index].setStatus(status);
     saveToFile();
 }
 
-int CSVRepo::getIndexOf(const Scooter &scooter) {
+int ScooterRepoCSV::getIndexOf(const Scooter &scooter) {
     loadFromFile();
     auto it = std::find(scooterList.begin(), scooterList.end(), scooter);
     if (it != scooterList.end()) {
@@ -64,20 +64,20 @@ int CSVRepo::getIndexOf(const Scooter &scooter) {
     return -1;
 }
 
-Scooter CSVRepo::getScooterAtIndex(int index) {
+Scooter ScooterRepoCSV::getScooterAtIndex(int index) {
     loadFromFile();
     if (index < 0 || index > scooterList.size()) {
-        throw out_of_range("CSVRepo::getScooterAtIndex(): Index out of range for index " + to_string(index));
+        throw out_of_range("ScooterRepoCSV::getScooterAtIndex(): Index out of range for index " + to_string(index));
     }
     return scooterList[index];
 }
 
-vector<Scooter> CSVRepo::getAll() {
+vector<Scooter> ScooterRepoCSV::getAll() {
     return scooterList;
 }
 
-void CSVRepo::saveToFile() {
-    ofstream file(filename_, ios::out);
+void ScooterRepoCSV::saveToFile() {
+    ofstream file(filename, ios::out);
     if (file.is_open()) {
         for (const auto &scooter: scooterList) {
             file << scooter.getId() << "," << scooter.getModel() << "," << timeToStr(scooter.getCommissioningDate())
@@ -90,8 +90,8 @@ void CSVRepo::saveToFile() {
     }
 }
 
-void CSVRepo::loadFromFile() {
-    ifstream file(filename_);
+void ScooterRepoCSV::loadFromFile() {
+    ifstream file(filename);
 
     if (file.is_open()) {
         string line;
@@ -111,19 +111,19 @@ void CSVRepo::loadFromFile() {
     }
 }
 
-void CSVRepo::removeAtIndex(int index) {
+void ScooterRepoCSV::removeAtIndex(int index) {
     loadFromFile();
     if (index < 0 || index > scooterList.size())
-        throw out_of_range("CSVRepo::removeAtIndex(): Index out of range for index " + to_string(index));
+        throw out_of_range("ScooterRepoCSV::removeAtIndex(): Index out of range for index " + to_string(index));
 
     scooterList.erase(scooterList.begin() + index);
     saveToFile();
 }
 
-Scooter CSVRepo::getMyScooter() const {
+Scooter ScooterRepoCSV::getMyScooter() const {
     return myScooter;
 }
 
-void CSVRepo::setMyScooter(const Scooter &_myScooter) {
+void ScooterRepoCSV::setMyScooter(const Scooter &_myScooter) {
     myScooter = _myScooter;
 }

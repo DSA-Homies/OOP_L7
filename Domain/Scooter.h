@@ -67,19 +67,21 @@ namespace domain {
                 string location, Status status = DECOMMISSIONED);
 
         //id getter
-        [[nodiscard]] const string &getId() const;
+        [[nodiscard]] string getId() const;
 
         //id setter
         void setId(const string &id);
 
         //model getter
-        [[nodiscard]] const string &getModel() const;
+        [[nodiscard]] string getModel() const;
 
         //model setter
         void setModel(const string &model);
 
         //commissioning date getter
         [[nodiscard]] time_t getCommissioningDate() const;
+
+        [[nodiscard]] string getCommissioningDateStr() const;
 
         //commissioning date setter
         void setCommissioningDate(time_t _commissioningDate);
@@ -90,17 +92,21 @@ namespace domain {
         //kilometer getter
         [[nodiscard]] float getKilometer() const;
 
+        [[nodiscard]] string getKilometerStr() const;
+
         //kilometer setter
         void setKilometer(float kilometer);
 
         //location getter
-        [[nodiscard]] const string &getLocation() const;
+        [[nodiscard]] string getLocation() const;
 
         //location setter
         void setLocation(const string &location);
 
         //status getter
         [[nodiscard]] Status getStatus() const;
+
+        [[nodiscard]] string getStatusStr() const;
 
         //status setter
         void setStatus(Status status);

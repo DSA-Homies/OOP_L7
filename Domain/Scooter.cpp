@@ -17,7 +17,7 @@ Scooter::Scooter(string id, string model, const string &commissioningDate, float
                                                    kilometer(kilometer), location(std::move(location)),
                                                    status(status) {}
 
-const string &Scooter::getId() const {
+string Scooter::getId() const {
     return id;
 }
 
@@ -25,7 +25,7 @@ void Scooter::setId(const string &_id) {
     this->id = _id;
 }
 
-const string &Scooter::getModel() const {
+string Scooter::getModel() const {
     return model;
 }
 
@@ -35,6 +35,10 @@ void Scooter::setModel(const string &_model) {
 
 time_t Scooter::getCommissioningDate() const {
     return commissioningDate;
+}
+
+string Scooter::getCommissioningDateStr() const {
+    return timeToStr(commissioningDate);
 }
 
 void Scooter::setCommissioningDate(time_t _commissioningDate) {
@@ -53,7 +57,7 @@ void Scooter::setKilometer(float _kilometer) {
     this->kilometer = _kilometer;
 }
 
-const string &Scooter::getLocation() const {
+string Scooter::getLocation() const {
     return location;
 }
 
@@ -63,6 +67,14 @@ void Scooter::setLocation(const string &_location) {
 
 Status Scooter::getStatus() const {
     return status;
+}
+
+string Scooter::getStatusStr() const {
+    return statusToStr(status);
+}
+
+string Scooter::getKilometerStr() const {
+    return to_string(kilometer);
 }
 
 void Scooter::setStatus(Status _status) {

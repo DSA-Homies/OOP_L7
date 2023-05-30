@@ -99,8 +99,8 @@ void ScooterRepoCSV::loadFromFile() {
             istringstream iss(line);
             string id, model, commissioningDate, kilometer, location, status;
             if (getline(iss, id, ',') && getline(iss, model, ',') &&
-                getline(iss, commissioningDate) && getline(iss, kilometer) &&
-                getline(iss, location) && getline(iss, status)) {
+                getline(iss, commissioningDate, ',') && getline(iss, kilometer, ',') &&
+                getline(iss, location, ',') && getline(iss, status)) {
                 scooterList.emplace_back(id, model, strToTime(commissioningDate), stof(kilometer), location,
                                          Status(stoi(status)));
             }
@@ -127,3 +127,4 @@ Scooter ScooterRepoCSV::getMyScooter() const {
 void ScooterRepoCSV::setMyScooter(const Scooter &_myScooter) {
     myScooter = _myScooter;
 }
+

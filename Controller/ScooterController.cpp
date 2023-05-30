@@ -230,3 +230,7 @@ void ScooterController::update(const string &id, const Scooter &newScooter) {
 
     repo->update(index, newScooter);
 }
+
+vector<Scooter> ScooterController::getAll() {
+    return repo->getAll();
+}

@@ -40,6 +40,8 @@ namespace ctrl {
         void setMyScooter(const Scooter &scooter);
 
         Scooter getScooterById(const string &id);
+
+        vector<Scooter> getAll();
     };
 }
 

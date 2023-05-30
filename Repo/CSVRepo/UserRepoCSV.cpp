@@ -7,13 +7,9 @@ using namespace repo;
  * @param initLIst the vector to store the users
  * @param _filename the filename representing the csv data base where the users and their passwords are saved
  */
-UserRepoCSV::UserRepoCSV(const vector<User> &initLIst, const string &_filename) {
+UserRepoCSV::UserRepoCSV(const string &_filename) {
     filename = _filename;
     loadFromFile();
-    if (userList.empty()) {
-        userList = initLIst;
-        saveToFile();
-    }
 };
 
 /**

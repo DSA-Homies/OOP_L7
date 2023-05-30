@@ -74,7 +74,7 @@ string Scooter::getStatusStr() const {
 }
 
 string Scooter::getKilometerStr() const {
-    return to_string(kilometer);
+    return formatFloat(kilometer, 1);
 }
 
 void Scooter::setStatus(Status _status) {

@@ -18,7 +18,8 @@ namespace repo {
         void loadFromFile();
 
     public:
-        explicit ScooterRepoCSV(const vector<Scooter> &initLIst, string filename = "../Repo/DataBase/ScooterDataBase.csv");
+        explicit ScooterRepoCSV(const vector<Scooter> &initLIst,
+                                string filename = "../Repo/DataBase/ScooterDataBase.csv");
 
         void add(const Scooter &scooter) override;
 
@@ -38,7 +39,7 @@ namespace repo {
 
         Scooter getMyScooter() const override;
 
-        void setMyScooter(const Scooter& _myScooter) override;
+        void setMyScooter(const Scooter &_myScooter) override;
 
     };
 }

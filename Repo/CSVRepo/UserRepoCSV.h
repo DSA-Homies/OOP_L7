@@ -23,7 +23,7 @@ namespace repo {
         void loadFromFile();
 
     public:
-        explicit UserRepoCSV(const vector<User> &initLIst, const string &_filename);
+        explicit UserRepoCSV(const string &_filename = "../Repo/DataBase/UserDataBase.csv");
 
         void add(const User &user);
 
@@ -33,11 +33,11 @@ namespace repo {
 
         void update(int index, const User &newUser);
 
-        int getIndexOf(const User &user) const;
+        [[nodiscard]] int getIndexOf(const User &user) const;
 
-        User getUserAtIndex(int index) const;
+        [[nodiscard]] User getUserAtIndex(int index) const;
 
-        vector<User> getAll() const;
+        [[nodiscard]] vector<User> getAll() const;
 
     };
 }

@@ -22,7 +22,7 @@ namespace ui {
             return t1 < t2;
         }
     };
-    
+
     class FloatTableWidgetItem : public QTableWidgetItem {
     public:
         explicit FloatTableWidgetItem(const QString &text) : QTableWidgetItem(text) {}

@@ -2,7 +2,7 @@
 #include "UI/ScooterUI.h"
 #include "Controller/ScooterController.h"
 
-#include "../Test/TestAll.h"
+#include "Test/TestAll.h"
 
 using namespace std;
 using namespace ui;

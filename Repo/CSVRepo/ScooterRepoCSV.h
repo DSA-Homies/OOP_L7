@@ -6,7 +6,7 @@
 #define OOP_L6_CSVREPO_H
 
 #include "../CRUDRepo/CRUDRepo.h"
-#include "../Utils/Utils.h"
+#include "../../Utils/Utils.h"
 
 namespace repo {
     class ScooterRepoCSV : public CRUDRepo {

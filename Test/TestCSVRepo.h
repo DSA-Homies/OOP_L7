@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <cassert>
-#include "ScooterRepoCSV.h"
+#include "../Repo/CSVRepo/ScooterRepoCSV.h"
 #include "../Utils/utils.h"
 
 void testCSVRepo() {

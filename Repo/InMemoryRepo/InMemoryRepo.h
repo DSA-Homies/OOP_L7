@@ -2,10 +2,9 @@
 #define OOP_L5_SCOOTERREPO_H
 
 #include <vector>
-#include "Scooter.h"
 
-#include "../Domain/Scooter.h"
-#include "../Repo/CRUDRepo/CRUDRepo.h"
+#include "../../Domain/Scooter.h"
+#include "../../Repo/CRUDRepo/CRUDRepo.h"
 
 using namespace std;
 using namespace domain;

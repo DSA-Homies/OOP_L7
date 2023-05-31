@@ -39,27 +39,15 @@ namespace ui {
         table->setHorizontalHeaderLabels(hLabels);
 
 
-        // Add data
+        // Add table rows
         for (int i = 0; i < table->rowCount(); i++) {
-            QTableWidgetItem *item;
-            for (int j = 0; j < table->columnCount(); j++) {
-
-                if (j == 0)
-                    item = new QTableWidgetItem(QString::fromStdString(scooterList[i].getId()));
-                if (j == 1)
-                    item = new QTableWidgetItem(QString::fromStdString(scooterList[i].getModel()));
-                if (j == 2)
-                    item = new DateTableWidgetItem(
-                            QString::fromStdString(scooterList[i].getCommissioningDateStr()));
-                if (j == 3)
-                    item = new FloatTableWidgetItem(QString::fromStdString(scooterList[i].getKilometerStr()));
-                if (j == 4)
-                    item = new QTableWidgetItem(QString::fromStdString(scooterList[i].getLocation()));
-                if (j == 5)
-                    item = new QTableWidgetItem(QString::fromStdString(scooterList[i].getStatusStr()));
-
-                table->setItem(i, j, item);
-            }
+            table->setItem(i, 0, new QTableWidgetItem(QString::fromStdString(scooterList[i].getId())));
+            table->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(scooterList[i].getModel())));
+            table->setItem(i, 2, new DateTableWidgetItem(
+                    QString::fromStdString(scooterList[i].getCommissioningDateStr())));
+            table->setItem(i, 3, new FloatTableWidgetItem(QString::fromStdString(scooterList[i].getKilometerStr())));
+            table->setItem(i, 4, new QTableWidgetItem(QString::fromStdString(scooterList[i].getLocation())));
+            table->setItem(i, 5, new QTableWidgetItem(QString::fromStdString(scooterList[i].getStatusStr())));
         }
 
         table->setSortingEnabled(true);
@@ -76,8 +64,7 @@ namespace ui {
         table->setSelectionMode(QAbstractItemView::SingleSelection);
         table->setSelectionBehavior(QAbstractItemView::SelectRows);
         table->setTextElideMode(Qt::ElideRight);
-
-
+        
         // Table properties
         table->setShowGrid(true);
         table->setGridStyle(Qt::DotLine);
@@ -89,9 +76,6 @@ namespace ui {
         table->horizontalHeader()->setDefaultSectionSize(150);
         table->horizontalHeader()->setStretchLastSection(true);
 
-
         setCentralWidget(table);
-
-
     }
 } // ui

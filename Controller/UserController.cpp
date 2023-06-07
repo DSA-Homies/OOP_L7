@@ -57,11 +57,16 @@ void UserController::update(const User &newUser) {
 
 }
 
-bool UserController::validate(const string &username, const string &password) {
+bool UserController::validate(const string &username, const string &password, User &currentUser) {
     try {
         User tempUser = repo->getUserByName(username);
-        return tempUser.getPasswordHash() == sha256(password);
+        if (tempUser.getPasswordHash() == sha256(password)){
+            currentUser = tempUser;
+            return true;
+        }
     } catch (InvalidUserException &e) {
         return false;
     }
+
+    return false;
 }

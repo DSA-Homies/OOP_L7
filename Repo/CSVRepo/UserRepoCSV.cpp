@@ -40,7 +40,7 @@ void UserRepoCSV::loadFromFile() {
             istringstream iss(line);
             string username, passwordHash, type;
             if (getline(iss, username, ',') && getline(iss, passwordHash, ',') && getline(iss, type)) {
-                userList.emplace_back(username, passwordHash);
+                userList.emplace_back(username, passwordHash, User::strToStatus(type));
             }
         }
         file.close();

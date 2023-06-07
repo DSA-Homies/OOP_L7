@@ -20,7 +20,7 @@ namespace ctrl {
 
         void update(const User &newUser);
 
-        bool validate(const string &username, const string &password);
+        bool validate(const string &username, const string &password, User &currentUser);
 
     };
 }

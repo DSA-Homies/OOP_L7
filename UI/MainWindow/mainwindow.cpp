@@ -15,19 +15,21 @@ namespace ui {
 
 
     MainWindow::MainWindow(unique_ptr<ScooterController> _scooterCtrl, shared_ptr<UserController> _userCtrl,
+                           const User &_currentUser,
                            QWidget *parent) :
             QMainWindow(parent), ui(new Ui::MainWindow) {
         ui->setupUi(this);
         scooterCtrl = std::move(_scooterCtrl);
         userCtrl = std::move(_userCtrl);
-        initToolBar();
-//        QString filePath = QFileDialog::getOpenFileName(this, "Select CSV File", "", "CSV Files (*.csv)");
+        currentUser = _currentUser;
 
-        // Load scooters from the selected CSV file
-//        scooterCtrl->loadFromCSV(filePath.toStdString());
+        initToolBar();
 
         table = new QTableWidget(this);
         setCentralWidget(table);
+
+        qDebug() << currentUser.toCSVString();
+
         TableWidgetDisplay(scooterCtrl->getAll());
     }
 
@@ -56,6 +58,17 @@ namespace ui {
 
         table->setSortingEnabled(true);
 
+        if (currentUser.getTypeEnum() == UserType::USER) {
+            // Disable editing for USER
+            table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+            table->setSelectionMode(QAbstractItemView::NoSelection);
+            table->setFocusPolicy(Qt::NoFocus);
+        } else if (currentUser.getTypeEnum() == UserType::ADMIN) {
+            // Enable editing for ADMIN
+            table->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
+            table->setSelectionMode(QAbstractItemView::SingleSelection);
+            table->setFocusPolicy(Qt::StrongFocus);
+        }
 
         table->setStyleSheet("QTableWidget{"
                              "background-color: #C0C0C0;"
@@ -72,7 +85,6 @@ namespace ui {
         // Table properties
         table->setShowGrid(true);
         table->setGridStyle(Qt::DotLine);
-        table->setSortingEnabled(true);
         table->setCornerButtonEnabled(true);
 
         // Header properties

@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include "../../Controller/UserController.h"
+#include "../../Domain/User.h"
 
 using namespace ctrl;
 
@@ -51,6 +52,10 @@ public:
         setLayout(layout);
     }
 
+    User getCurrentUser() {
+        return currentUser;
+    }
+
 private slots:
 
     void login() {
@@ -73,10 +78,12 @@ private slots:
 
 private:
     shared_ptr<UserController> userCtrl;
+    User currentUser;
 
     bool validateLogin(const QString &username, const QString &password) {
-        return userCtrl->validate(username.toStdString(), password.toStdString());
+        return userCtrl->validate(username.toStdString(), password.toStdString(), currentUser);
     }
+
 };
 
 

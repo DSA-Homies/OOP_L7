@@ -27,7 +27,7 @@ namespace ui {
 
     public:
         explicit MainWindow(unique_ptr<ScooterController> _scooterCtrl, shared_ptr<UserController> _userCtrl,
-                            QWidget *parent = nullptr);
+                            const User& _currentUser, QWidget *parent = nullptr);
 
         void TableWidgetDisplay(vector<domain::Scooter> scooterList);
 
@@ -45,6 +45,7 @@ namespace ui {
         QTableWidget *table{};
         unique_ptr<ScooterController> scooterCtrl;
         shared_ptr<UserController> userCtrl;
+        User currentUser;
 
     };
 } // ui

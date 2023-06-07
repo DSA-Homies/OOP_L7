@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
     if (loginWindow.exec() == QDialog::Accepted) {
         // Login successful, create and show the main window with the table
-        MainWindow w(std::move(scooterControllerPtr), std::move(userControllerPtr));
+        MainWindow w(std::move(scooterControllerPtr), std::move(userControllerPtr), loginWindow.getCurrentUser());
         w.show();
         w.resize(900, 400);
         return app.exec();

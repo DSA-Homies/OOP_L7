@@ -2,16 +2,16 @@
 #define OOP_L5_SCOOTERCONTROLLER_H
 
 #include <memory>
-#include "../Repo/InMemoryRepo/InMemoryRepo.h"
-#include "../Repo/CRUDRepo/CRUDRepo.h"
+#include "../Repo/CSVRepo/ScooterRepoCSV.h"
 
+using namespace repo;
 
 namespace ctrl {
     class ScooterController {
     private:
-        unique_ptr<CRUDRepo> repo;
+        unique_ptr<ScooterRepoCSV> repo;
     public:
-        explicit ScooterController(unique_ptr<CRUDRepo> _repoPtr);
+        explicit ScooterController(unique_ptr<ScooterRepoCSV> _repoPtr);
 
         [[nodiscard]] vector<Scooter> searchByLocation(const string &location) const;
 
@@ -42,6 +42,8 @@ namespace ctrl {
         Scooter getScooterById(const string &id);
 
         vector<Scooter> getAll();
+
+        void loadFromCSV(const string &filePath);
     };
 }
 

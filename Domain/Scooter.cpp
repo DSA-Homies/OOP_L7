@@ -100,3 +100,9 @@ vector<string> Scooter::toList() const {
                               statusToStr(status)};
     return details;
 }
+
+string Scooter::details() const {
+    return "ID: " + id + "\nModel: " + model + "\nCommissioning date: " + timeToStr(commissioningDate) +
+           "\nKilometer: " + formatFloat(kilometer, 1) + "\nLocation: " + location + "\nStatus: " +
+           statusToStr(status);
+}

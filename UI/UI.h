@@ -5,7 +5,7 @@
 
 #include "Widgets.h"
 #include "../Controller/ScooterController.h"
-#include "../Utils/utils.h"
+#include "../Utils/Utils.h"
 
 /**
  * This user interface class is used so that the customer ui and manager ui inherit functions from it, simplifying the

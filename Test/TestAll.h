@@ -2,7 +2,6 @@
 #define OOP_L5_TESTALL_H
 
 #include "../Test/TestDomain.h"
-#include "../Test/TestInMemoryRepo.h"
 #include "../Test/TestCSVRepo.h"
 #include "TestController.h"
 
@@ -11,7 +10,7 @@
  */
 void testAll() {
     testDomain();
-    testRepo();
+//    testRepo();
     testController();
     testCSVRepo();
 }

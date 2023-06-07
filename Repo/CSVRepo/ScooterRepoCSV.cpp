@@ -91,6 +91,7 @@ void ScooterRepoCSV::saveToFile() {
 }
 
 void ScooterRepoCSV::loadFromFile() {
+    scooterList.clear();
     ifstream file(filename);
 
     if (file.is_open()) {
@@ -128,3 +129,6 @@ void ScooterRepoCSV::setMyScooter(const Scooter &_myScooter) {
     myScooter = _myScooter;
 }
 
+void ScooterRepoCSV::setFile(const std::string fileName_) {
+    filename = fileName_;
+}

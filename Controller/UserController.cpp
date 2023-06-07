@@ -16,8 +16,8 @@ UserController::UserController(unique_ptr<UserRepoCSV> _repoPtr) {
  * @param username of the user
  * @param password of the user
  */
-void UserController::add(const string &username, const string &password) {
-    repo->add(User(username, password));
+void UserController::add(const string &username, const string &password, const UserType &type) {
+    repo->add(User(username, sha256(password), type));
 }
 
 /**
@@ -55,4 +55,13 @@ void UserController::update(const User &newUser) {
         throw InvalidUserException("UserController::updateUser(): User not found!");
     }
 
+}
+
+bool UserController::validate(const string &username, const string &password) {
+    try {
+        User tempUser = repo->getUserByName(username);
+        return tempUser.getPasswordHash() == sha256(password);
+    } catch (InvalidUserException &e) {
+        return false;
+    }
 }

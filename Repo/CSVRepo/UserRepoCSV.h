@@ -7,7 +7,7 @@
 #include <fstream>
 #include <algorithm>
 #include "../../Domain/User.h"
-
+#include "../../Exception/InvalidUserException.h"
 
 using namespace std;
 using namespace domain;
@@ -39,6 +39,7 @@ namespace repo {
 
         [[nodiscard]] vector<User> getAll() const;
 
+        User getUserByName(const string &name) const;
     };
 }
 

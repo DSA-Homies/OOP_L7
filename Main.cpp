@@ -6,6 +6,7 @@
 #include "Test/TestAll.h"
 #include "UI/MainWindow/mainwindow.h"
 #include "Controller/UserController.h"
+#include "UI/LoginWindow/loginwindow.h"
 
 using namespace std;
 using namespace ui;
@@ -29,36 +30,18 @@ int main(int argc, char *argv[]) {
     unique_ptr<ScooterRepoCSV> scooterRepoPtr = make_unique<ScooterRepoCSV>(initList);
     unique_ptr<UserRepoCSV> userRepoPtr = make_unique<UserRepoCSV>();
     unique_ptr<ScooterController> scooterControllerPtr = make_unique<ScooterController>(std::move(scooterRepoPtr));
-    unique_ptr<UserController> userControllerPtr = make_unique<UserController>(std::move(userRepoPtr));
+    shared_ptr<UserController> userControllerPtr = make_shared<UserController>(std::move(userRepoPtr));
 
     QApplication app(argc, argv);
-    MainWindow w(std::move(scooterControllerPtr), std::move(userControllerPtr));
-    w.show();
 
-    return app.exec();
+    LoginWindow loginWindow(std::move(userControllerPtr));
 
-//    testAll();
-//
-//
-//    vector<string> options = {"In Memory Repo", "CSV Repo", "Exit"};
-//    int option = Widgets::menu("Choose Repository", options);
-//    unique_ptr<CRUDRepo> scooterRepoPtr;
-//
-//        switch (option) {
-//            case 1:
-//                scooterRepoPtr = make_unique<InMemoryRepo>(initList);
-//                break;
-//            case 2:
-//                scooterRepoPtr = make_unique<ScooterRepoCSV>(initList);
-//                break;
-//            case 3:
-//                exit(0);
-//            default:
-//                break;
-//        }
-//
-//    unique_ptr<ScooterController> scooterControllerPtr = make_unique<ScooterController>(std::move(scooterRepoPtr));
-//    ScooterUI ui(std::move(scooterControllerPtr));
-//    ui.mainMenu();
+    if (loginWindow.exec() == QDialog::Accepted) {
+        // Login successful, create and show the main window with the table
+        MainWindow w(std::move(scooterControllerPtr), std::move(userControllerPtr));
+        w.show();
+        w.resize(900, 400);
+        return app.exec();
+    }
 
 }

@@ -16,8 +16,8 @@
 
 using namespace std;
 
-#define uchar unsigned char
-#define uint unsigned int
+#define my_uchar unsigned char
+#define my_uint unsigned int
 
 #define DBL_INT_ADD(a, b, c) if (a > 0xffffffff - (c)) ++b; a += c;
 #define ROTLEFT(a, b) (((a) << (b)) | ((a) >> (32-(b))))
@@ -31,13 +31,13 @@ using namespace std;
 #define SIG1(x) (ROTRIGHT(x,17) ^ ROTRIGHT(x,19) ^ ((x) >> 10))
 
 typedef struct {
-    uchar data[64];
-    uint datalen;
-    uint bitlen[2];
-    uint state[8];
+    my_uchar data[64];
+    my_uint datalen;
+    my_uint bitlen[2];
+    my_uint state[8];
 } SHA256_CTX;
 
-static uint k[64] = {
+static my_uint k[64] = {
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
         0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
         0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
@@ -48,8 +48,8 @@ static uint k[64] = {
         0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-static void SHA256Transform(SHA256_CTX *ctx, const uchar data[]) {
-    uint a, b, c, d, e, f, g, h, i, j, t1, t2, m[64];
+static void SHA256Transform(SHA256_CTX *ctx, const my_uchar data[]) {
+    my_uint a, b, c, d, e, f, g, h, i, j, t1, t2, m[64];
 
     for (i = 0, j = 0; i < 16; ++i, j += 4)
         m[i] = (data[j] << 24) | (data[j + 1] << 16) | (data[j + 2] << 8) | (data[j + 3]);
@@ -102,8 +102,8 @@ static void SHA256Init(SHA256_CTX *ctx) {
     ctx->state[7] = 0x5be0cd19;
 }
 
-static void SHA256Update(SHA256_CTX *ctx, const uchar data[], uint len) {
-    for (uint i = 0; i < len; ++i) {
+static void SHA256Update(SHA256_CTX *ctx, const my_uchar data[], my_uint len) {
+    for (my_uint i = 0; i < len; ++i) {
         ctx->data[ctx->datalen] = data[i];
         ctx->datalen++;
         if (ctx->datalen == 64) {
@@ -114,8 +114,8 @@ static void SHA256Update(SHA256_CTX *ctx, const uchar data[], uint len) {
     }
 }
 
-static void SHA256Final(SHA256_CTX *ctx, uchar hash[]) {
-    uint i = ctx->datalen;
+static void SHA256Final(SHA256_CTX *ctx, my_uchar hash[]) {
+    my_uint i = ctx->datalen;
 
     if (ctx->datalen < 56) {
         ctx->data[i++] = 0x80;

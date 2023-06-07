@@ -29,6 +29,7 @@ public:
     virtual Scooter getScooterAtIndex(int index) = 0;
     virtual std::vector<Scooter> getAll() = 0;
     virtual ~CRUDRepo() = default;
+    virtual void setFile(std::string fileName_) = 0;
 };
 
 

@@ -15,9 +15,9 @@ namespace repo {
 
         void saveToFile();
 
+    public:
         void loadFromFile();
 
-    public:
         explicit ScooterRepoCSV(const vector<Scooter> &initLIst,
                                 string filename = "../Repo/DataBase/ScooterDataBase.csv");
 
@@ -37,9 +37,12 @@ namespace repo {
 
         vector<Scooter> getAll() override;
 
-        Scooter getMyScooter() const override;
+        [[nodiscard]] Scooter getMyScooter() const override;
 
         void setMyScooter(const Scooter &_myScooter) override;
+
+        void setFile(std::string fileName_) override;
+
 
     };
 }

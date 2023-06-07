@@ -19,7 +19,7 @@ void UserRepoCSV::saveToFile() {
     ofstream file(filename, ios::out);
     if (file.is_open()) {
         for (const auto &user: userList) {
-            file << user.toCSVString();
+            file << user.toCSVString() << "\n";
         }
         file.close();
     } else {
@@ -31,16 +31,16 @@ void UserRepoCSV::saveToFile() {
  * @brief loads all the users with their usernames and their passwords from the csv file
  */
 void UserRepoCSV::loadFromFile() {
-
+    userList.clear();
     ifstream file(filename);
 
     if (file.is_open()) {
         string line;
         while (getline(file, line)) {
             istringstream iss(line);
-            string username, password;
-            if (getline(iss, username, ',') && getline(iss, password)) {
-                userList.emplace_back(username, sha256(password));
+            string username, passwordHash, type;
+            if (getline(iss, username, ',') && getline(iss, passwordHash, ',') && getline(iss, type)) {
+                userList.emplace_back(username, passwordHash);
             }
         }
         file.close();
@@ -62,6 +62,7 @@ vector<User> UserRepoCSV::getAll() const {
  * @param user the user to be saved
  */
 void UserRepoCSV::add(const User &user) {
+    loadFromFile();
     userList.push_back(user);
     saveToFile();
 }
@@ -120,6 +121,16 @@ int UserRepoCSV::getIndexOf(const User &user) const {
         return (int) distance(userList.begin(), it);
     }
     return -1;
+}
+
+User UserRepoCSV::getUserByName(const string &name) const {
+    for (const auto &user: userList) {
+        if (user.getUsername() == name) {
+            return user;
+        }
+    }
+
+    throw Exception::InvalidUserException("UserRepoCSV::getUserByName(): User not found!");
 }
 
 /**

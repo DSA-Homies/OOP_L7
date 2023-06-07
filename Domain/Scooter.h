@@ -117,11 +117,13 @@ namespace domain {
         bool operator!=(const Scooter &other) const;
 
         //transforms object to string
-
         [[nodiscard]] string toString() const;
 
-        //makes a scooterList of strings of objects
+        //makes a list of strings from the objects attributes
         [[nodiscard]] vector<string> toList() const;
+
+        //make a string representing the details of the object
+        [[nodiscard]] string details() const;
     };
 
 }

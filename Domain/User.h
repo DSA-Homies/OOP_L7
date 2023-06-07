@@ -46,11 +46,11 @@ namespace domain {
 
         [[nodiscard]] string getUsername() const { return username; }
 
-        [[nodiscard]] string getPassword() const { return passwordHash; }
+        [[nodiscard]] string getPasswordHash() const { return passwordHash; }
 
         [[nodiscard]] string getType() const { return typeList[type]; }
 
-        UserType getTypeEnum() const { return type; }
+        [[nodiscard]] UserType getTypeEnum() const { return type; }
 
         [[nodiscard]] string getScooterId() const { return scooterId; }
 
@@ -63,7 +63,7 @@ namespace domain {
 
         [[nodiscard]]
         string toCSVString() const {
-            return username + "," + sha256(passwordHash) + "," + typeList[type] + "," + scooterId;
+            return username + "," + passwordHash + "," + typeList[type] + "," + scooterId;
         }
 
         bool operator==(const User &other) const {

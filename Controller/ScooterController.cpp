@@ -1,6 +1,7 @@
 #include <algorithm>
+#include <fstream>
 #include "ScooterController.h"
-#include "../Utils/utils.h"
+#include "../Utils/Utils.h"
 #include "../Exception/InvalidScooterIdException.h"
 
 using namespace ctrl;
@@ -9,7 +10,7 @@ using domain::Scooter;
 
 using Exception::InvalidScooterIdException;
 
-ScooterController::ScooterController(unique_ptr<CRUDRepo> _repoPtr) {
+ScooterController::ScooterController(unique_ptr<ScooterRepoCSV> _repoPtr) {
     repo = std::move(_repoPtr);
 }
 
@@ -233,4 +234,9 @@ void ScooterController::update(const string &id, const Scooter &newScooter) {
 
 vector<Scooter> ScooterController::getAll() {
     return repo->getAll();
+}
+
+void ScooterController::loadFromCSV(const string &filePath) {
+    repo->setFile(filePath);
+    repo->loadFromFile();
 }

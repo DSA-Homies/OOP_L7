@@ -8,11 +8,11 @@
 #include "ui_MainWindow.h"
 #include <QHeaderView>
 #include "../../Utils/utils.h"
+#include <QMessageBox>
 #include "../TableWidgetItems/TablewidgetItems.h"
 
 namespace ui {
     using namespace domain;
-
 
     MainWindow::MainWindow(unique_ptr<ScooterController> _scooterCtrl, shared_ptr<UserController> _userCtrl,
                            const User &_currentUser,
@@ -28,9 +28,16 @@ namespace ui {
         table = new QTableWidget(this);
         setCentralWidget(table);
 
-        qDebug() << currentUser.toCSVString();
+        userInfoLabel = new QLabel(this);
+        userInfoLabel->setText(QString::fromStdString("Logged in as: " + currentUser.getUsername() + " | " +
+                                                      currentUser.getType()));
+        statusBar()->addWidget(userInfoLabel);
 
-        TableWidgetDisplay(scooterCtrl->getAll());
+        if (currentUser.getTypeEnum() == UserType::ADMIN) {
+            TableWidgetDisplay(scooterCtrl->getAll());
+        } else {
+            TableWidgetDisplay(scooterCtrl->getScootersByStatus(Status::PARKED));
+        }
     }
 
 
@@ -106,9 +113,17 @@ namespace ui {
         QObject::connect(loadAction, &QAction::triggered, [&]() {
             // Handle the loadAction triggered event here
             qDebug() << "Load from File action triggered";
-            QString filePath = QFileDialog::getOpenFileName(this, "Select CSV File", "", "CSV Files (*.csv)");
-            scooterCtrl->loadFromCSV(filePath.toStdString());
-            TableWidgetDisplay(scooterCtrl->getAll());
+            try {
+                QString filePath = QFileDialog::getOpenFileName(this, "Select CSV File", "", "CSV Files (*.csv)");
+                scooterCtrl->loadFromCSV(filePath.toStdString());
+                if (currentUser.getTypeEnum() == UserType::ADMIN) {
+                    TableWidgetDisplay(scooterCtrl->getAll());
+                } else {
+                    TableWidgetDisplay(scooterCtrl->getScootersByStatus(Status::PARKED));
+                }
+            } catch (exception &e) {
+                QMessageBox::critical(this, "Couldn't open File", e.what());
+            }
         });
 
         toolBar->addWidget(fileButton);

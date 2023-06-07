@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QToolButton>
 #include <QToolBar>
+#include <QLabel>
 #include "../../Domain/Scooter.h"
 #include "../../Controller/ScooterController.h"
 #include "../../Controller/UserController.h"
@@ -27,7 +28,7 @@ namespace ui {
 
     public:
         explicit MainWindow(unique_ptr<ScooterController> _scooterCtrl, shared_ptr<UserController> _userCtrl,
-                            const User& _currentUser, QWidget *parent = nullptr);
+                            const User &_currentUser, QWidget *parent = nullptr);
 
         void TableWidgetDisplay(vector<domain::Scooter> scooterList);
 
@@ -46,6 +47,7 @@ namespace ui {
         unique_ptr<ScooterController> scooterCtrl;
         shared_ptr<UserController> userCtrl;
         User currentUser;
+        QLabel *userInfoLabel;
 
     };
 } // ui
